@@ -1,0 +1,65 @@
+.modal-pop{
+	width: 610rpx;
+	min-height: 200rpx;
+	overflow: hidden;
+	border-radius: 40rpx;
+	
+	// 弹窗头部 start
+	.pop-head{
+		.title{
+			padding-top: 32rpx;
+		}
+	}
+	// 弹窗头部 end
+	
+	
+	// 弹窗内容 start
+	.pop-body{
+		.content{
+			min-height: 150rpx;
+			align-items: center;
+			justify-content: center;
+			display: flex;
+		}
+		.textarea-box{
+			height: 140rpx;
+			background-color: #F8F8FA;
+		}
+	}
+	// 弹窗内容 end
+	
+	// 弹窗页脚 start
+	.pop-footer{
+		.btns{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.btn{
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			&.type-1{
+				height:112rpx;
+				.btn{
+					height: 100%;
+				}
+			}
+			&.type-2{
+				padding: 32rpx 0;
+				.confirm{
+					height: 80rpx;
+					min-width:400rpx;
+					max-width: 500rpx;
+					padding: 0 10rpx;
+					border: 0;
+					color: white;
+					background: $df-color;
+				}
+			}
+		}
+	}
+	// 弹窗页脚 end
+	
+	
+}

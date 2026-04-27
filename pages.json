@@ -1,0 +1,120 @@
+{
+	"easycom": {
+		"autoscan": true,
+		// 注意一定要放在custom里，否则无效，https://ask.dcloud.net.cn/question/131175
+		"custom": {
+			"^u--(.*)": "uview-plus/components/u-$1/u-$1.vue",
+			"^up-(.*)": "uview-plus/components/u-$1/u-$1.vue",
+			"^u-([^-].*)": "uview-plus/components/u-$1/u-$1.vue",
+			"^cu-(.*)": "@/components/cu-components/cu-$1/cu-$1.vue"
+		}
+	},
+
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+
+		{ // 微信登录
+			"path": "pages/login/wxLogin/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{ // 协议页面
+			"path": "pages/protocol/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		// #ifdef APP-PLUS
+		{ // 公共弹出层 压窗屏
+			"path": "pages/pop/index",
+			"style": {
+				"app-plus": {
+					"animationType": "fade-in",
+					"background": "transparent",
+					"backgroundColor": "rgba(0,0,0,0)",
+					"popGesture": "none"
+				},
+				"navigationStyle": "custom"
+			}
+		},
+		// #endif 
+
+		{ // 头像图片裁剪
+			"path": "pages/avatarCropper/avatarCropper",
+			"style": {
+				"navigationBarTitleText": "头像裁剪",
+				"navigationBarBackgroundColor": "#000000",
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{ // Tab页面 - 设备
+			"path": "pages/tab/device/index"
+		},
+		{ // Tab页面 - 地图
+			"path": "pages/tab/map/index"
+		},
+		{ // Tab页面 - 我的
+			"path": "pages/tab/mine/index"
+		},
+		{ // 业务组件 - 添加设备
+			"path": "pages/views/device/add",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{ // 业务组件 - 确认添加设备
+			"path": "pages/views/device/confirm",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{ // 业务组件 - 关于我们
+			"path": "pages/views/settings/about",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}
+
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"navigationStyle": "custom"
+	},
+	"uniIdRouter": {},
+	"tabBar": {
+		"backgroundColor": "#FFFFFF",
+		"selectedColor": "#5D4037",
+		"borderStyle": "black",
+		"color": "#999999",
+		"list": [
+			{
+				"pagePath": "pages/tab/device/index",
+				"text": "设备",
+				"iconPath": "/static/images/tabbar/facility.png",
+				"selectedIconPath": "/static/images/tabbar/flacility-selected.png"
+			},
+			{
+				"pagePath": "pages/tab/map/index",
+				"text": "地图",
+				"iconPath": "/static/images/tabbar/map.png",
+				"selectedIconPath": "/static/images/tabbar/map-selected.png"
+			},
+			{
+				"pagePath": "pages/tab/mine/index",
+				"text": "我的",
+				"iconPath": "/static/images/tabbar/mine.png",
+				"selectedIconPath": "/static/images/tabbar/mine-selected.png"
+			}
+		]
+	}
+}

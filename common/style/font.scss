@@ -1,0 +1,48 @@
+@font-face{
+	font-family: 'DIN';
+	src: url('@/static/font/DIN-Medium.otf') format('truetype');
+}
+
+@font-face{
+	font-family: 'PingFang SC-Medium';
+	src: url('@/static/font/PingFang-Medium.ttf') format('truetype');
+}
+
+
+//  din 粗体
+.font-din-bold{
+	font-family: DIN, PingFang SC-Medium;
+	font-weight: bold;
+}
+
+// din 默认 Medium 中等字体
+.font-din-m{
+	font-family: DIN, PingFang SC-Medium;
+}
+
+// din 默认 Regular 细体
+.font-din-r{
+	font-family: DIN, PingFang SC-Medium;
+	font-weight: 200;
+}
+
+// 平方 粗体
+.font-pf-bold{
+	font-family: PingFang SC-Medium;
+	font-weight: bold;
+}
+
+// 平方 默认 Medium 中等字体
+.font-pf-m{
+	font-family: PingFang SC-Medium;
+}
+
+// 平方 默认 Regular 细体
+.font-pf-r{
+	font-family: PingFang SC-Medium;
+	font-weight: 200;
+}
+
+
+
+

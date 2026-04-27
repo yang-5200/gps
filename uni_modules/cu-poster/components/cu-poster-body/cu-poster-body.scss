@@ -1,0 +1,19 @@
+.cu-poster-body{
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	.cu-poster-canvas{
+		position: fixed;
+		top: 0;
+		left: 100vw;
+		margin-top: 30rpx;
+		// width: 100vw;
+		width: 100%;
+		height: 200vh;
+	}
+	.cu-poster-canvas-tool{
+		// left: 0;
+		// top: 80vh;
+		background-color: red;
+	}
+}

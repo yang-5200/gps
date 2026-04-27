@@ -1,0 +1,250 @@
+@use 'sass:math';
+/**
+ * 布局
+ */
+/*盒子尺寸-宽和高*/
+@for $i from 1 to 401 {
+  .box-size-w-#{$i} {
+    width: $i * 2 + rpx;
+  }
+  .box-size-h-#{$i} {
+    height: $i * 2 + rpx;
+  }
+}
+
+/*盒子尺寸-宽和高*/
+@for $i from 1 to 201 {
+  $reduce: $i * 2 + rpx;
+  .box-size-wr-#{$i} {
+    width: calc(100% - $reduce);
+  }
+  .box-size-hr-#{$i} {
+    height: calc(100% - $reduce);
+  }
+}
+
+/* 字体行高 */
+@for $i from 1 to 101 {
+  .text-lh-#{$i} {
+    line-height: $i * 2 + rpx;
+  }
+}
+
+/*正方形盒子尺寸*/
+@for $i from 1 to 201 {
+  .box-size-#{$i} {
+    width: $i * 2 + rpx;
+    height: $i * 2 + rpx;
+  }
+}
+
+/*特殊的内外边距*/
+// 值
+$special-mp-val: (
+  '2': 2rpx,
+  '4': 4rpx,
+  '6': 6rpx,
+  '8': 8rpx,
+  'xs': 10rpx,
+  'hdf': 16rpx,
+  '16': 16rpx,
+  'sm': 20rpx,
+  '20': 20rpx,
+  '24': 24rpx,
+  '26': 26rpx,
+  '28': 28rpx,
+  '': 30rpx,
+  'df': 32rpx,
+  '32': 32rpx,
+  '38': 38rpx,
+  'lg': 40rpx,
+  '40': 40rpx,
+  'xl': 50rpx,
+  '50': 50rpx,
+  '56': 56rpx,
+  '70': 70rpx,
+  '100': 100rpx,
+);
+// 类型
+$special-mp-types: 'margin' 'padding';
+// 位置
+$special-mp-positios: '' '-top' '-right' '-bottom' '-left' '-tb' '-lr';
+
+@each $sk, $sv in $special-mp-val {
+  @each $st in $special-mp-types {
+    @each $sp in $special-mp-positios {
+      $sk-str: '';
+      @if $sk != '' {
+        $sk-str: '-' + $sk;
+      } @else {
+        $sk-str: '';
+      }
+
+      .#{$st}#{$sp}#{$sk-str} {
+        @if $sp == '' {
+          #{$st}: $sv;
+        } @else if $sp == '-tb' {
+          #{$st}-top: $sv;
+          #{$st}-bottom: $sv;
+        } @else if $sp == '-lr' {
+          #{$st}-left: $sv;
+          #{$st}-right: $sv;
+        } @else {
+          #{$st}#{$sp}: $sv;
+        }
+      }
+    }
+  }
+}
+
+/*圆角*/
+$border-radius: (
+  'xs': 8rpx,
+  '8': 8rpx,
+  '10': 10rpx,
+  'sm': 16rpx,
+  '16': 16rpx,
+  'df': 24rpx,
+  '24': 24rpx,
+  '20': 20rpx,
+  '30': 30rpx,
+  '32': 32rpx,
+  '36': 36rpx,
+  'dot': 50%,
+);
+
+@each $bk, $bv in $border-radius {
+  .radius-#{$bk} {
+    border-radius: $bv;
+    overflow: hidden;
+  }
+}
+
+/**
+ * 字体
+ */
+
+/*字体粗细*/
+@for $i from 0 to 8 {
+  .text-#{($i + 1) * 100} {
+    font-weight: ($i + 1) * 100;
+  }
+}
+
+/*透明度*/
+@for $i from 0 to 10 {
+  .opcity-#{$i} {
+    opacity: math.div($i, 10);
+  }
+}
+
+/*字体大小*/
+$font-size-list: (
+  'xs': 20rpx,
+  '20': 20rpx,
+  '22': 22rpx,
+  'sm': 24rpx,
+  '24': 24rpx,
+  '26': 26rpx,
+  'df': 28rpx,
+  '28': 28rpx,
+  'lg': 32rpx,
+  '32': 32rpx,
+  '34': 34rpx,
+  'xl': 36rpx,
+  '36': 36rpx,
+  'xxl': 40rpx,
+  '40': 40rpx,
+  'xxxl': 44rpx,
+  '44': 44rpx,
+  '48': 48rpx,
+  '56': 56rpx,
+  '60': 60rpx,
+);
+@each $fk, $fv in $font-size-list {
+  .text-#{$fk} {
+    font-size: $fv;
+  }
+}
+
+/*文本溢出 显示省略号*/
+@for $i from 0 to 3 {
+  $str: '';
+  @if $i > 0 {
+    $str: '-' + ($i + 1);
+    .text-hidden#{$str} {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: $i + 1;
+      -webkit-box-orient: vertical;
+    }
+  } @else {
+    .text-hidden {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+/**
+ * 颜色
+ */
+// $df-color: #2979ff;
+/* 颜色变量 */
+$color-list: (
+  'df-color': $df-color,
+  'red': #eb1512,
+  'price': #ef4444,
+  'orange': #ff9f60,
+  'yellow': #fab300,
+  'yellow-2': #ff9836,
+  'yellow-3': #feae15,
+  'yellow-4': #ffc327,
+  'olive': #8dc63f,
+  'green': #39b54a,
+  'green-2': #009562,
+  'green-3': #02c482,
+  'cyan': #37a3eb,
+  'blue': #4ca1fd,
+  'blue-0': #044189,
+  'blue-2': #3b82f6,
+  'purple': #6739b6,
+  'mauve': #9c26b0,
+  'pink': #e03997,
+  'brown': #a5673f,
+  'grey': #666666,
+  'gray': #bfbfbf,
+  'gray-2': #999999,
+  'gray-4': #4b5563,
+  'gray-tp': #f8f8f8,
+  'placeholder-gray': #aaaaaa,
+  'black': #333333,
+  'white': #ffffff,
+  'white-8': #f8f8f8,
+  'heavy-black': #1a1a1a,
+);
+@each $ck, $cv in $color-list {
+  .bg-#{$ck} {
+    background-color: $cv;
+  }
+  .text-#{$ck} {
+    color: $cv;
+  }
+}
+
+// 阴影预设
+$shadow-list: (
+  'xs': 0 0 5px 0 rgba(0, 0, 0, 0.05),
+  'sm': 0 0 10px 0 rgba(0, 0, 0, 0.1),
+  'df': 0 0 15px 0 rgba(0, 0, 0, 0.05),
+  'lg': 0 0 20px 0 rgba(0, 0, 0, 0.2),
+  'xl': 0 0 25px 0 rgba(0, 0, 0, 0.25),
+);
+
+@each $sk, $sv in $shadow-list {
+  .shadow-#{$sk} {
+    box-shadow: $sv;
+  }
+}

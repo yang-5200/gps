@@ -1,0 +1,83 @@
+{
+    "id": "cu-poster",
+    "displayName": "cu-poster",
+    "version": "1.0.0",
+    "description": "自定义海报生成组件，无需计算海报元素的大小、位置、字体颜色、字体大小，只需要完成css布局，组件会自动获取元素属性和样式并完成绘制",
+    "keywords": [
+        "海报",
+        "自定义",
+        "",
+        "cu-poster",
+        "海报绘制",
+        "海报生成"
+    ],
+    "repository": "",
+    "engines": {
+        "HBuilderX": "^4.15"
+    },
+    "dcloudext": {
+        "sale": {
+            "regular": {
+                "price": "0.00"
+            },
+            "sourcecode": {
+                "price": "0.00"
+            }
+        },
+        "contact": {
+            "qq": ""
+        },
+        "declaration": {
+            "ads": "无",
+            "data": "无",
+            "permissions": "无"
+        },
+        "npmurl": ""
+    },
+    "uni_modules": {
+        "dependencies": [],
+        "encrypt": [],
+        "platforms": {
+            "cloud": {
+                "tcb": "y",
+                "aliyun": "y",
+                "alipay": "n"
+            },
+            "client": {
+                "App": {
+                    "app-vue": "y",
+                    "app-nvue": "u"
+                },
+                "H5-mobile": {
+                    "Safari": "u",
+                    "Android Browser": "u",
+                    "微信浏览器(Android)": "u",
+                    "QQ浏览器(Android)": "u"
+                },
+                "H5-pc": {
+                    "Chrome": "y",
+                    "IE": "n",
+                    "Edge": "u",
+                    "Firefox": "u",
+                    "Safari": "u"
+                },
+                "小程序": {
+                    "微信": "y",
+                    "阿里": "u",
+                    "百度": "u",
+                    "字节跳动": "u",
+                    "QQ": "u"
+                },
+                "快应用": {
+                    "华为": "u",
+                    "联盟": "u"
+                },
+                "Vue": {
+                    "vue2": "y",
+                    "vue3": "n"
+                }
+            }
+        }
+    },
+    "dependencies": {}
+}

@@ -1,0 +1,26 @@
+.cu-picker-flex2{
+	flex:2;
+}
+.cu-picker-flex1{
+	flex:1;
+}
+.cu-picker-view {
+	width: 100%;
+	height: 476rpx;
+	overflow: hidden;
+	background-color: rgba(255, 255, 255, 1);
+	z-index: 666;
+}
+.d-picker-view{
+	height: 100%;
+}
+
+.cu-picker-item {
+  text-align: center;
+  width: 100%;
+  /* height: 88rpx; */
+  line-height: 88rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 30rpx;
+}

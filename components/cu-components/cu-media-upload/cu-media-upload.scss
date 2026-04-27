@@ -1,0 +1,121 @@
+.cu-media-upload {
+  .media-list {
+    .upload-btn {
+      width: 150rpx;
+      height: 150rpx;
+      border: 0;
+      padding: 20rpx 0;
+      display: flex;
+      background-color: #f8f8f8;
+
+      .cuIcon-add {
+        color: black !important;
+        font-size: 60rpx;
+      }
+    }
+
+    .upload-btn-slot {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .media-container {
+      position: relative;
+      overflow: visible;
+
+      .delete-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        right: 22rpx;
+        z-index: 999;
+        font-size: 32rpx;
+        border-radius: 50%;
+
+        .delete-icon-img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .preview,
+    .media-box,
+    .file-box {
+      position: relative;
+      overflow: hidden;
+      background-color: #f8f8f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .media-img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .video-preview-wrap {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .play-icon {
+          position: absolute;
+          width: 80rpx;
+          height: 80rpx;
+          background-color: rgba(0, 0, 0, 0.4);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+          font-size: 40rpx;
+        }
+      }
+
+      .file-icon {
+        font-size: 60rpx;
+        color: #666;
+        margin-bottom: 10rpx;
+      }
+
+      .file-name {
+        font-size: 24rpx;
+        color: #333;
+        text-align: center;
+        word-break: break-all;
+        line-height: 1.2;
+        max-height: 60rpx;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        padding: 0 10rpx;
+      }
+
+      .upload-time {
+        width: 100%;
+        padding: 10rpx 0;
+        .time-text {
+          color: #666;
+          font-size: 24rpx;
+          text-align: center;
+          display: block;
+        }
+      }
+    }
+  }
+}

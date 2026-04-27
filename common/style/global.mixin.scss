@@ -1,0 +1,18 @@
+/**
+ * 背景图片样式 mixin
+ * @param {string} $url - 背景图片的URL路径
+ * @param {string} $size - 背景图片尺寸 (默认: cover)
+ * @param {string} $position - 背景图片位置 (默认: center)
+ * @param {string} $repeat - 背景图片重复方式 (默认: no-repeat)
+ *
+ * 常用值参考：
+ * $size: cover | contain | 100% 100% | 50px | auto
+ * $position: center | top | bottom | left | right | center center | 50% 50%
+ * $repeat: no-repeat | repeat | repeat-x | repeat-y
+ */
+@mixin page-bg-image($url, $size: 100% auto, $position: center top, $repeat: no-repeat) {
+  background-image: $url;
+  background-size: $size;
+  background-position: $position;
+  background-repeat: $repeat;
+}

@@ -1,0 +1,138 @@
+.cu-layer{
+	position: fixed;
+	left: 0;right: 0;top: 0;
+	bottom: 0;
+	
+	
+	// 遮罩层动画
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.6);
+		opacity: 0;
+		transition: opacity 0.3s ease-in-out;
+	}
+	
+	&.show {
+		&::before {
+			opacity: 1;
+		}
+	}
+	
+	.layer-body{
+		position: absolute;
+		opacity: 0;
+		transition: all 0.3s ease-in-out;
+		
+		&.show {
+			opacity: 1;
+		}
+		&.close{
+			animation-direction: reverse;
+		}
+		&.mode-left{
+			width: auto;
+			height: 100%;
+			left: 0;
+			transform: translateX(-100%);
+		}
+		
+		&.mode-right{
+			width: auto;
+			height: 100%;
+			right: 0;
+			transform: translateX(100%);
+		}
+		
+		&.mode-top{
+			width: 100%;
+			height:auto ;
+			top: 0;
+			transform: translateY(-100%);
+		}
+		&.mode-bottom {
+			width: 100%;
+			height:auto ;
+			bottom: 0;
+			transform: translateY(100%);
+		}
+		
+		&.mode-center {
+			width: auto;
+			height: auto ;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%) scale(0.8);
+			opacity: 0;
+		}
+		
+		&.show {
+			&.mode-left {
+				transform: translateX(0);
+			}
+			&.mode-right {
+				transform: translateX(0);
+			}
+			&.mode-top {
+				transform: translateY(0);
+			}
+			&.mode-bottom {
+				transform: translateY(0);
+			}
+			&.mode-center {
+				transform: translate(-50%, -50%) scale(1);
+				opacity: 1;
+			}
+		}
+	}
+}
+
+@keyframes left-to-right {
+	from{
+		left: -100%;
+	}
+	to{
+		left: 0;
+	}
+}
+
+
+@keyframes right-to-left {
+	from{
+		right: -100%;
+	}
+	to{
+		right: 0;
+	}
+}
+
+@keyframes top-to-bottom {
+	from{
+		top: -100%;
+	}
+	to{
+		top: 0;
+	}
+}
+
+@keyframes bottom-to-top {
+	from{
+		bottom: -100%;
+	}
+	to{
+		bottom: 0;
+	}
+}
+
+@keyframes to-center {
+	from{
+		transform: scale(2);
+	}
+	to{
+		transform: scale(1);
+	}
+}

@@ -1,0 +1,428 @@
+body, uni-page-body, page {
+	background-color: $page-color;
+	font-size: $font-size;
+	color: $font-color;
+	font-weight: $font-weight;
+	font-family: Helvetica Neue, Helvetica, sans-serif;
+  
+  /* #ifdef APP-PLUS || H5 || MP-WEIXIN */
+  font-family: PingFang SC-Medium, Helvetica Neue, Helvetica, sans-serif;
+  /* #endif */
+}
+
+view,
+scroll-view,
+swiper,
+button,
+input,
+textarea,
+label,
+navigator,
+image {
+	box-sizing: border-box;
+}
+
+input{
+	border: 0 !important;
+	font-size: 32rpx;
+	font-weight: 400;
+	&.disabled{
+		/* #ifdef H5 */
+		pointer-events:none;
+		/* #endif */
+		pointer-events:none;
+	}
+}
+
+
+
+button.btn{
+	height: 88rpx;
+	line-height: 88rpx;
+	border: 0;
+	font-weight: 400;
+	font-size: 32rpx;
+	&:after{
+		border: 0;
+	}
+}
+
+.round {
+	border-radius: 5000rpx;
+}
+
+
+.status-box{
+  height: var(--status-bar-height);
+  width: 100%;
+}
+
+.w100{
+  width: 100%;
+}
+.h100{
+  height: 100%;
+}
+
+/* 横向滚动区域 */
+.scroll-box-x {
+	white-space: nowrap;
+}
+
+/* 中划线*/
+.text-decoration-lt{
+	text-decoration: line-through;
+}
+
+.text-decoration-ul{
+	text-decoration: underline;
+}
+
+/* 通过设置overflow-wrap:break-word;来解决英文文本溢出不换行的问题，通过设置设置word-break:keep-all;来解决中文文本无脑换行的问题。 */
+.p1{
+	word-break: break-word;
+}
+
+.border-top{
+  border-top: 1px solid $border-color;
+}
+
+.border-bottom{
+  border-bottom:1px solid $border-color;
+}
+
+.border-left{
+  border-left:1px solid $border-color;
+}
+.border-right{
+  border-right:1px solid $border-color;
+}
+.border{
+  border: 1rpx solid $border-color;
+}
+
+/* ==================
+          图片
+ ==================== */
+
+image {
+	display: inline-block;
+	position: relative;
+	z-index: 0;
+  vertical-align: top;
+}
+
+image.loading::before {
+	content: "";
+	background-color: #f5f5f5;
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: -2;
+}
+
+image.loading::after {
+	content: "\e7f1";
+	font-family: "cuIcon";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 32rpx;
+	height: 32rpx;
+	line-height: 32rpx;
+	right: 0;
+	bottom: 0;
+	z-index: -1;
+	font-size: 32rpx;
+	margin: auto;
+	color: #ccc;
+	-webkit-animation: cuIcon-spin 2s infinite linear;
+	animation: cuIcon-spin 2s infinite linear;
+	display: block;
+}
+
+
+/*  -- 文本 -- */
+
+.text-center{
+	text-align: center;
+}
+
+.text-bold {
+	font-weight: bold;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-content {
+	line-height: 1.6;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+/* ==================
+          布局
+ ==================== */
+
+/*  -- flex弹性布局 -- */
+
+.flex {
+	display: flex;
+}
+
+.basis-xs {
+	flex-basis: 20%;
+}
+
+.basis-sm {
+	flex-basis: 40%;
+}
+
+.basis-df {
+	flex-basis: 50%;
+}
+
+.basis-lg {
+	flex-basis: 60%;
+}
+
+.basis-xl {
+	flex-basis: 80%;
+}
+
+.flex-sub {
+	flex: 1;
+}
+
+.flex-twice {
+	flex: 2;
+}
+
+.flex-treble {
+	flex: 3;
+}
+
+.flex-direction {
+	flex-direction: column;
+}
+
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+.align-start {
+	align-items: flex-start;
+}
+
+.align-end {
+	align-items: flex-end;
+}
+
+.align-center {
+	align-items: center;
+}
+
+.align-stretch {
+	align-items: stretch;
+}
+
+.self-start {
+	align-self: flex-start;
+}
+
+.self-center {
+	align-self: flex-center;
+}
+
+.self-end {
+	align-self: flex-end;
+}
+
+.self-stretch {
+	align-self: stretch;
+}
+
+.align-stretch {
+	align-items: stretch;
+}
+
+.justify-start {
+	justify-content: flex-start;
+}
+
+.justify-end {
+	justify-content: flex-end;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.justify-between {
+	justify-content: space-between;
+}
+
+.justify-around {
+	justify-content: space-around;
+}
+
+.flex-row-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flex-column-between {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-grow-1{
+	flex-grow: 1;
+}
+
+.flex-shrink-zero{
+	flex-shrink: 0;
+}
+
+/* grid布局 */
+.grid {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.grid.grid-square {
+	overflow: hidden;
+}
+
+.grid.grid-square .cu-tag {
+	position: absolute;
+	right: 0;
+	top: 0;
+	border-bottom-left-radius: 6rpx;
+	padding: 6rpx 12rpx;
+	height: auto;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.grid.grid-square>view>text[class*="cuIcon-"] {
+	font-size: 52rpx;
+	position: absolute;
+	color: #8799a3;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.grid.grid-square>view {
+	margin-right: 20rpx;
+	margin-bottom: 20rpx;
+	border-radius: 6rpx;
+	position: relative;
+	overflow: hidden;
+}
+.grid.grid-square>view.bg-img image {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+.grid.col-1.grid-square>view {
+	padding-bottom: 100%;
+	height: 0;
+	margin-right: 0;
+}
+
+.grid.col-2.grid-square>view {
+	padding-bottom: calc((100% - 20rpx)/2);
+	height: 0;
+	width: calc((100% - 20rpx)/2);
+}
+
+.grid.col-3.grid-square>view {
+	padding-bottom: calc((100% - 40rpx)/3);
+	height: 0;
+	width: calc((100% - 40rpx)/3);
+}
+
+.grid.col-4.grid-square>view {
+	padding-bottom: calc((100% - 60rpx)/4);
+	height: 0;
+	width: calc((100% - 60rpx)/4);
+}
+
+.grid.col-5.grid-square>view {
+	padding-bottom: calc((100% - 80rpx)/5);
+	height: 0;
+	width: calc((100% - 80rpx)/5);
+}
+
+.grid.col-2.grid-square>view:nth-child(2n),
+.grid.col-3.grid-square>view:nth-child(3n),
+.grid.col-4.grid-square>view:nth-child(4n),
+.grid.col-5.grid-square>view:nth-child(5n) {
+	margin-right: 0;
+}
+
+.grid.col-1>view {
+	width: 100%;
+}
+
+.grid.col-2>view {
+	width: 50%;
+}
+
+.grid.col-3>view {
+	width: 33.33%;
+}
+
+.grid.col-4>view {
+	width: 25%;
+}
+
+.grid.col-5>view {
+	width: 20%;
+}
+/**
+ * 伪元素冒泡
+ */
+/* 伪元素变量 */
+.bubbling-check{
+	position: relative;
+	&:after {
+		content: '';
+		display: block;
+		position:absolute;
+		top:0;
+		left:0;
+		right:0;
+		bottom:0;
+	}
+}

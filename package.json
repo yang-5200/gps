@@ -1,0 +1,22 @@
+{
+  "name": "app-basics2.0",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:style": "style-dictionary build --config style.dictionary.config.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "deep-pick-omit": "^1.2.1",
+    "destr": "^2.0.5",
+    "nanoid": "^5.0.9",
+    "pinia": "^2.3.0",
+    "pinia-plugin-persistedstate": "^4.2.0",
+    "style-dictionary": "^4.3.0",
+    "uview-plus": "^3.3.56"
+  }
+}

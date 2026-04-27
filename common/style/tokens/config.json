@@ -1,0 +1,26 @@
+{
+  "page-color": {
+    "$value": "#FAFAFA",
+    "comment": "页面背景色"
+  },
+  "font-color": {
+    "$value": "#292D32 ",
+    "comment": "字体颜色"
+  },
+  "border-color": {
+    "$value": "#EEEEEE",
+    "comment": "边框颜色"
+  },
+  "df-color": {
+    "$value": "#4E1200",
+    "comment": "默认颜色"
+  },
+  "font-size": {
+    "$value": "28rpx",
+    "comment": "默认字体大小"
+  },
+  "font-weight": {
+    "$value": "400",
+    "comment": "默认字重"
+  }
+}

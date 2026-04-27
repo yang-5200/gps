@@ -1,0 +1,16 @@
+{
+	"cu-nav-bar":{
+		"background": {
+			"$value": "#FFFFFF",
+			"comment": "导航背景色"
+		},
+		"color":{
+			"$value": "#333333",
+			"comment": "导航字体颜色"
+		},
+		"height":{
+			"$value": 88,
+			"comment": "导航高度"
+		}
+	}
+}
