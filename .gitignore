@@ -89,10 +89,7 @@ uploads/temp/
 location-cache/
 *.location.cache
 
-/trae
-/cursor
-/codebuddy
-./unpackage/
-./trae
-./cursor
-./codebuddy
+# ==================== AI 助手配置目录 ====================
+.trae/
+.cursor/
+.codebuddy/
