@@ -33,7 +33,7 @@
                 </view>
 
                 <view class="text-xs text-gray">
-                  当前位置：
+                  当前位置： {{ device.location }}
                 </view>
 
 
@@ -100,16 +100,46 @@ const deletePopupRef = ref(null);
 
 // 假数据 - 初始设备
 const mockData = [
-  { id: 1, imei: '55666323', name: '我的设备1', status: '在线', addTime: '2026-01-15 10:30' },
-  { id: 2, imei: '99887766', name: '车载定位器', status: '离线', addTime: '2026-01-20 14:20' }
+  { 
+    id: 1, 
+    imei: '55666321', 
+    name: '郑州火车站设备', 
+    status: '在线', 
+    addTime: '2026-01-15 10:30',
+    latitude: 34.7486,
+    longitude: 113.6585,
+    location: '郑州二七广场火车站'
+  },
+  { 
+    id: 2, 
+    imei: '55666322', 
+    name: '洛阳火车站设备', 
+    status: '在线', 
+    addTime: '2026-01-20 14:20',
+    latitude: 34.6853,
+    longitude: 112.4342,
+    location: '洛阳火车站'
+  },
+  { 
+    id: 3, 
+    imei: '55666323', 
+    name: '万象城设备', 
+    status: '在线', 
+    addTime: '2026-01-25 09:15',
+    latitude: 34.7466,
+    longitude: 113.6253,
+    location: '二七区嵩山南路交叉口万象城'
+  }
 ];
 
 onLoad((options) => {
   console.log('设备页面加载', options);
-  // 首次加载时初始化假数据（如果本地没有数据）
+  // 首次加载时初始化假数据（如果本地没有数据，或者数据中缺少经纬度信息）
   const storedDevices = uni.getStorageSync('deviceList');
-  if (!storedDevices || storedDevices.length === 0) {
-    // 首次加载使用假数据
+  const needsUpdate = !storedDevices || storedDevices.length === 0 || !storedDevices[0].latitude;
+  
+  if (needsUpdate) {
+    // 强制使用最新的假数据
     uni.setStorageSync('deviceList', mockData);
     deviceList.value = mockData;
   } else {

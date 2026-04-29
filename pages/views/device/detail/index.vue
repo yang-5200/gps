@@ -5,7 +5,7 @@
 
     <!-- 地图背景 -->
     <map id="myMap" class="map-bg" :latitude="latitude" :longitude="longitude" :markers="markers"
-      :show-location="true"></map>
+      :show-location="true" scale="15"></map>
 
     <!-- 悬浮功能框 -->
     <view class="detail-card-wrap">
@@ -94,8 +94,8 @@
         <view class="text-32  text-center margin-bottom">设置电子围栏</view>
 
         <view class="fence-map-wrap margin-bottom">
-          <map class="fence-map" :latitude="latitude" :longitude="longitude" :circles="tempFenceCircles"
-            :markers="markers"></map>
+          <map class="fence-map" :latitude="deviceLat" :longitude="deviceLng" :circles="tempFenceCircles"
+            :markers="markers" scale="15"></map>
         </view>
 
         <view class="flex justify-between align-center margin-bottom-sm">
@@ -130,16 +130,44 @@ import { onLoad } from '@dcloudio/uni-app';
 import { toPath } from '@/common/utils/util.js';
 
 const device = ref({});
-const latitude = ref(34.7466);
-const longitude = ref(113.6253);
-const markers = ref([{
-  id: 1,
-  latitude: 34.7466,
-  longitude: 113.6253,
-  iconPath: '/static/images/location.png',
-  width: 40,
-  height: 40
-}]);
+const latitude = ref(34.7466); // 地图中心维度
+const longitude = ref(113.6253); // 地图中心经度
+const markers = ref([]);
+
+// 设备真实位置（用于标记和围栏圆心）
+const deviceLat = ref(34.7466);
+const deviceLng = ref(113.6253);
+
+// 模拟数据列表，用于详情页直接访问时的兜底
+const mockDevices = [
+  { 
+    id: 1, 
+    imei: '55666321', 
+    name: '郑州火车站设备', 
+    status: '在线', 
+    latitude: 34.7486,
+    longitude: 113.6585,
+    location: '郑州二七广场火车站'
+  },
+  { 
+    id: 2, 
+    imei: '55666322', 
+    name: '洛阳火车站设备', 
+    status: '在线', 
+    latitude: 34.6853,
+    longitude: 112.4342,
+    location: '洛阳火车站'
+  },
+  { 
+    id: 3, 
+    imei: '55666323', 
+    name: '万象城设备', 
+    status: '在线', 
+    latitude: 34.7466,
+    longitude: 113.6253,
+    location: '二七区嵩山南路交叉口万象城'
+  }
+];
 
 // 位置上传间隔相关逻辑
 const showIntervalPopup = ref(false);
@@ -176,8 +204,8 @@ const fenceRadius = ref(200);
 const tempFenceRadius = ref(200); // 临时变量
 
 const fenceCircles = computed(() => [{
-  latitude: latitude.value,
-  longitude: longitude.value,
+  latitude: deviceLat.value,
+  longitude: deviceLng.value,
   radius: fenceRadius.value,
   color: '#5D403733', // 褐色半透明
   fillColor: '#5D403733',
@@ -185,8 +213,8 @@ const fenceCircles = computed(() => [{
 }]);
 
 const tempFenceCircles = computed(() => [{
-  latitude: latitude.value,
-  longitude: longitude.value,
+  latitude: deviceLat.value,
+  longitude: deviceLng.value,
   radius: tempFenceRadius.value,
   color: '#5D403733',
   fillColor: '#5D403733',
@@ -231,10 +259,75 @@ const handleAction = (item) => {
 
 onLoad((options) => {
   if (options.id) {
+    // 优先从本地缓存获取
     const storedDevices = uni.getStorageSync('deviceList') || [];
-    const found = storedDevices.find(d => d.id == options.id);
+    let found = storedDevices.find(d => d.id == options.id);
+    
+    // 如果本地缓存没有，从模拟数据列表找（兼容直接刷新页面等场景）
+    if (!found) {
+      found = mockDevices.find(d => d.id == options.id);
+    }
+
     if (found) {
       device.value = found;
+      
+      // 安全获取经纬度，确保是有效的数字
+      const lat = parseFloat(found.latitude);
+      const lng = parseFloat(found.longitude);
+      
+      if (!isNaN(lat) && !isNaN(lng)) {
+        // 更新设备真实坐标
+        deviceLat.value = lat;
+        deviceLng.value = lng;
+
+        // 设置地图中心点（应用偏移量，使标记点显示在屏幕上方区域）
+        // 继续大幅增加偏移量到 -0.012，确保图标能被推到屏幕最上方的开阔区域
+        latitude.value = lat - 0.012;
+        longitude.value = lng;
+
+        // 使用 mapContext 确保在某些平台上也能生效
+        const mapCtx = uni.createMapContext('myMap');
+        setTimeout(() => {
+          mapCtx.moveToLocation({
+            latitude: lat - 0.012,
+            longitude: lng
+          });
+        }, 300);
+
+        // 设置设备标记点
+        markers.value = [{
+          id: Number(found.id),
+          latitude: lat,
+          longitude: lng,
+          iconPath: '/static/images/location.png',
+          width: 40,
+          height: 40
+        }];
+      } else {
+        console.error('设备经纬度无效:', found);
+        // 如果经纬度无效，保持默认值（万象城）
+        deviceLat.value = 34.7466;
+        deviceLng.value = 113.6253;
+        latitude.value = 34.7466 - 0.012;
+        longitude.value = 113.6253;
+
+        const mapCtx = uni.createMapContext('myMap');
+        setTimeout(() => {
+          mapCtx.moveToLocation({
+            latitude: 34.7466 - 0.012,
+            longitude: 113.6253
+          });
+        }, 300);
+
+        markers.value = [{
+          id: Number(found.id),
+          latitude: deviceLat.value,
+          longitude: deviceLng.value,
+          iconPath: '/static/images/location.png',
+          width: 40,
+          height: 40
+        }];
+      }
     }
   }
 });
@@ -268,7 +361,7 @@ onLoad((options) => {
   width: 100%;
   height: 100%;
   position: absolute;
-  top: 0;
+  top: 400;
   left: 0;
   z-index: 1;
 }

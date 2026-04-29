@@ -6,19 +6,16 @@
     <view class="page-content padding">
       <view class="profile-card padding-lr padding-bottom-xs bg-white">
         <!-- 头像 -->
-        <view class="profile-item padding-tb flex justify-between align-center padding-top border-bottom"
-          @tap="handleUpdateAvatar">
+        <view class="profile-item padding-tb flex justify-between align-center padding-top border-bottom" @tap="handleUpdateAvatar">
           <text class="item-label text-30">头像</text>
           <view class="item-right flex align-center">
-            <image class="avatar box-size-w-35 box-size-h-35 round" src="/static/images/profile.png"
-              mode="aspectFill" />
+            <image class="avatar box-size-w-35 box-size-h-35 round" src="/static/images/profile.png" mode="aspectFill" />
             <text class="cuIcon-right text-gray margin-left-xs"></text>
           </view>
         </view>
 
         <!-- 昵称 -->
-        <view class="profile-item padding-tb flex justify-between align-center border-bottom"
-          @tap="handleUpdateNickname">
+        <view class="profile-item padding-tb flex justify-between align-center border-bottom" @tap="handleUpdateNickname">
           <text class="item-label text-30">昵称</text>
           <view class="item-right flex align-center">
             <text class="item-value text-30 text-gray">忍冬</text>

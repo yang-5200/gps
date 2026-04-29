@@ -31,92 +31,115 @@ useTabBar();
 
 const { navbarImmerse } = useNavbarImmerse();
 
-const latitude = ref(39.9042);
-const longitude = ref(116.4074);
-const currentDevice = ref(1);
+const latitude = ref(34.7466);
+const longitude = ref(113.6253);
+const markers = ref([]);
+const deviceList = ref([]);
 
-const markers = ref([
-  {
-    id: 1,
-    latitude: 39.9042,
-    longitude: 116.4074,
-    title: '设备1',
-    iconPath: '/static/images/marker.png',
-    width: 40,
-    height: 40
-  }
-]);
-
-const deviceList = reactive([
-  {
-    id: 1,
-    name: '车载GPS-01',
-    status: 'online',
-    statusText: '在线',
-    location: '北京市朝阳区xxx街道',
-    updateTime: '2分钟前'
+// 模拟数据列表
+const mockDevices = [
+  { 
+    id: 1, 
+    imei: '55666321', 
+    name: '郑州火车站设备', 
+    status: '在线', 
+    latitude: 34.7486,
+    longitude: 113.6585,
+    location: '郑州二七广场火车站'
   },
-  {
-    id: 2,
-    name: '宠物定位器',
-    status: 'offline',
-    statusText: '离线',
-    location: '最后位置：北京市海淀区',
-    updateTime: '1小时前'
+  { 
+    id: 2, 
+    imei: '55666322', 
+    name: '洛阳火车站设备', 
+    status: '在线', 
+    latitude: 34.6853,
+    longitude: 112.4342,
+    location: '洛阳火车站'
+  },
+  { 
+    id: 3, 
+    imei: '55666323', 
+    name: '万象城设备', 
+    status: '在线', 
+    latitude: 34.7466,
+    longitude: 113.6253,
+    location: '二七区嵩山南路交叉口万象城'
   }
-]);
+];
 
-/**
- * @description 选择设备
- * @param {Object} device - 设备信息
- */
-function selectDevice(device) {
-  currentDevice.value = device.id;
-  latitude.value = device.latitude || 39.9042;
-  longitude.value = device.longitude || 116.4074;
-}
+const initMap = () => {
+  const storedDevices = uni.getStorageSync('deviceList') || mockDevices;
+  deviceList.value = storedDevices;
+  
+  if (storedDevices.length > 0) {
+    const validMarkers = [];
+    let firstValidCoord = null;
+
+    storedDevices.forEach(device => {
+      const lat = parseFloat(device.latitude);
+      const lng = parseFloat(device.longitude);
+
+      if (!isNaN(lat) && !isNaN(lng)) {
+        if (!firstValidCoord) {
+          firstValidCoord = { lat, lng };
+        }
+        validMarkers.push({
+          id: Number(device.id),
+          latitude: lat,
+          longitude: lng,
+          title: device.name,
+          iconPath: '/static/images/location.png',
+          width: 40,
+          height: 40,
+          callout: {
+            content: device.name,
+            display: 'ALWAYS',
+            padding: 4,
+            borderRadius: 4
+          }
+        });
+      }
+    });
+
+    markers.value = validMarkers;
+    
+    if (firstValidCoord) {
+      latitude.value = firstValidCoord.lat;
+      longitude.value = firstValidCoord.lng;
+    }
+  }
+};
 
 onLoad((options) => {
   console.log('地图页面加载', options);
+  initMap();
 });
 </script>
 
 <style lang="scss">
 .page-wrap {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+
   .page-content {
-    padding-bottom: calc(176rpx + env(safe-area-inset-bottom));
+    width: 100%;
+    height: 100%;
+    position: relative;
 
     .map-container {
-      height: 600rpx;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
     }
 
-    .device-panel {
-      min-height: 400rpx;
-
-      .device-list {
-        max-height: 400rpx;
-      }
-
-      .device-item {
-        background-color: #f8f8f8;
-
-        &.active {
-          background-color: #f0e6e0;
-          border: 2rpx solid #5D4037;
-        }
-
-        .device-status {
-          &.online {
-            color: #52c41a;
-            background-color: #f6ffed;
-          }
-
-          &.offline {
-            color: #999;
-            background-color: #f5f5f5;
-          }
-        }
-      }
+    .map {
+      width: 100%;
+      height: 100%;
     }
   }
 }

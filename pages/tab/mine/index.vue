@@ -24,7 +24,7 @@
       </view>
 
       <!-- 功能菜单 -->
-      <view class="menu-card bg-white padding">
+      <view class="menu-card bg-white  padding">
         <view class="menu-item flex justify-between align-center padding-tb-25" v-for="item in menuList" :key="item.id"
           @tap="handleItemClick(item)">
           <view class="menu-item-left  flex align-center">
@@ -165,6 +165,7 @@ function handleItemClick(item) {
     background: #ffffff;
     border-radius: 30rpx;
 
+		
     .menu-item {
       &:last-child {
         border-bottom: none;
