@@ -37,10 +37,9 @@
           </view>
           <view class="status-item flex justify-between align-center padding-tb-20">
             <text class="text-28">位置上传间隔：</text>
-            <view class="flex align-center">
-              <text class="text-28">1分钟</text>
-              <!-- 这个问ui要三角形切图 -->
-              <image src="/static/images/trangile.png" style="width: 48rpx; height: 48rpx;" class="margin-left-xs"
+            <view class="flex align-center" @tap="openIntervalPopup">
+              <text class="text-28">{{ selectedInterval }}</text>
+              <image src="/static/images/trangile.png" style="width: 28rpx; height: 15rpx;" class="margin-left-xs"
                 mode="aspectFit"></image>
             </view>
           </view>
@@ -64,25 +63,50 @@
       </view>
     </view>
 
+    <!-- 位置上传间隔设置弹窗 -->
+    <up-popup :show="showIntervalPopup" round="20rpx" mode="center" @close="cancelInterval">
+      <view class="interval-popup-content">
+        <view class="text-32 text-center margin-bottom">位置上传间隔</view>
+        
+        <view class="interval-grid margin-bottom">
+          <view 
+            v-for="(item, index) in intervalOptions" 
+            :key="index"
+            class="interval-item flex align-center justify-center border"
+            :class="{ 'interval-item-active': tempInterval === item }"
+            @tap="selectInterval(item)"
+          >
+            <text class="interval-text" :class="{ 'interval-text-active': tempInterval === item }">{{ item }}</text>
+          </view>
+        </view>
+        
+        <view class="flex justify-between gap-20 ">
+					<view class="flex-sub padding-tb-24 text-center radius-120 bg-white border" @tap="cancelInterval">取消</view>
+			
+					<view class="flex-sub padding-tb-24  text-center radius-120 text-white bg-df-color" @tap="saveInterval">确认设置</view>
+        </view>
+      </view>
+    </up-popup>
+
     <!-- 电子围栏设置弹窗 -->
-    <up-popup :show="showFencePopup" round="20rpx" mode="center" @close="showFencePopup = false">
+    <up-popup :show="showFencePopup" round="20rpx" mode="center" @close="cancelFence">
       <view class="fence-popup-content">
         <view class="text-32  text-center margin-bottom">设置电子围栏</view>
 
         <view class="fence-map-wrap margin-bottom">
-          <map class="fence-map" :latitude="latitude" :longitude="longitude" :circles="fenceCircles"
+          <map class="fence-map" :latitude="latitude" :longitude="longitude" :circles="tempFenceCircles"
             :markers="markers"></map>
         </view>
 
         <view class="flex justify-between align-center margin-bottom-sm">
           <text class="text-28">围栏半径：</text>
-          <text class="text-28 text-bold text-primary">{{ fenceRadius }}米</text>
+          <text class="text-28 text-bold text-primary">{{ tempFenceRadius }}米</text>
         </view>
 
         <view class="margin-bottom slider-wrap">
 
-          <slider :value="fenceRadius" @changing="e => fenceRadius = e.detail.value"
-            @change="e => fenceRadius = e.detail.value" :min="20" :max="2500" :step="10" activeColor="#5D4037"
+          <slider :value="tempFenceRadius" @changing="e => tempFenceRadius = e.detail.value"
+            @change="e => tempFenceRadius = e.detail.value" :min="20" :max="2500" :step="10" activeColor="#5D4037"
             backgroundColor="#E0E0E0" block-color="#5D4037" block-size="20" style="margin: 0;" />
         </view>
 
@@ -92,8 +116,8 @@
         </view>
 
         <view class="flex justify-between gap-20">
-          <button class="flex-1 cu-btn round line-gray" @tap="showFencePopup = false">取消</button>
-          <button class="flex-1 cu-btn round bg-primary text-white" @tap="saveFence">确认设置</button>
+          <view class="flex-sub padding-tb-24 text-center radius-120 border" @tap="cancelFence">取消</view>
+          <view class="flex-sub padding-tb-24 text-center radius-120 text-white bg-df-color" @tap="saveFence">确认设置</view>
         </view>
       </view>
     </up-popup>
@@ -117,9 +141,40 @@ const markers = ref([{
   height: 40
 }]);
 
+// 位置上传间隔相关逻辑
+const showIntervalPopup = ref(false);
+const selectedInterval = ref('1分钟');
+const tempInterval = ref('1分钟'); // 临时变量存储选择
+const intervalOptions = ['5分钟', '15分钟', '30分钟', '1小时', '3小时', '12小时'];
+
+const openIntervalPopup = () => {
+  tempInterval.value = selectedInterval.value; // 打开时同步当前值
+  showIntervalPopup.value = true;
+};
+
+const selectInterval = (item) => {
+  tempInterval.value = item;
+};
+
+const saveInterval = () => {
+  selectedInterval.value = tempInterval.value; // 确认时才保存
+  uni.showToast({
+    title: '设置成功',
+    icon: 'success'
+  });
+  showIntervalPopup.value = false;
+};
+
+const cancelInterval = () => {
+  tempInterval.value = selectedInterval.value; // 取消时恢复原值
+  showIntervalPopup.value = false;
+};
+
 // 电子围栏相关逻辑
 const showFencePopup = ref(false);
 const fenceRadius = ref(200);
+const tempFenceRadius = ref(200); // 临时变量
+
 const fenceCircles = computed(() => [{
   latitude: latitude.value,
   longitude: longitude.value,
@@ -129,11 +184,31 @@ const fenceCircles = computed(() => [{
   strokeWidth: 2
 }]);
 
+const tempFenceCircles = computed(() => [{
+  latitude: latitude.value,
+  longitude: longitude.value,
+  radius: tempFenceRadius.value,
+  color: '#5D403733',
+  fillColor: '#5D403733',
+  strokeWidth: 2
+}]);
+
+const openFencePopup = () => {
+  tempFenceRadius.value = fenceRadius.value; // 打开时同步当前值
+  showFencePopup.value = true;
+};
+
 const saveFence = () => {
+  fenceRadius.value = tempFenceRadius.value; // 确认时才保存
   uni.showToast({
     title: '围栏设置成功',
     icon: 'success'
   });
+  showFencePopup.value = false;
+};
+
+const cancelFence = () => {
+  tempFenceRadius.value = fenceRadius.value; // 取消时恢复原值
   showFencePopup.value = false;
 };
 
@@ -146,7 +221,7 @@ const actionList = [
 
 const handleAction = (item) => {
   if (item.type === 'popup') {
-    showFencePopup.value = true;
+    openFencePopup(); // 打开时初始化临时变量
     return;
   }
   if (item.url) {
@@ -166,6 +241,19 @@ onLoad((options) => {
 </script>
 
 <style lang="scss" scoped>
+	.radius-120{
+		border-radius: 120rpx;
+	}
+	
+	.padding-lr-126{
+		padding-left: 126rpx;
+		padding-right: 126rpx;
+	}
+	.padding-lr-120{
+		padding-left: 120rpx;
+		padding-right: 120rpx;
+	}
+	
 .text-action-color {
   color: #201D1D;
 }
@@ -242,6 +330,51 @@ onLoad((options) => {
   gap: 22rpx 26rpx;
 }
 
+/* 位置上传间隔弹窗样式 */
+.interval-popup-content {
+  width: 676rpx;
+  height: 510rpx;
+  padding: 40rpx;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 32rpx 32rpx 32rpx 32rpx;
+  border: 2rpx solid #FFFFFF;
+  box-sizing: border-box;
+	
+	
+backdrop-filter: blur(10px);
+}
+
+.interval-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+}
+
+.interval-item {
+  width: 196rpx;
+  height: 96rpx;
+  background: #FFFFFF;
+  border-radius: 30rpx 30rpx 30rpx 30rpx;
+  cursor: pointer;
+}
+
+.interval-item-active {
+  width: 196rpx;
+  height: 96rpx;
+  background: #4E1200;
+  border-radius: 30rpx 30rpx 30rpx 30rpx;
+  border: 2rpx solid #4E1200;
+}
+
+.interval-text {
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.interval-text-active {
+  color: #FFFFFF;
+}
+
 /* 电子围栏弹窗样式 */
 .fence-popup-content {
   width: 680rpx;
@@ -250,6 +383,8 @@ onLoad((options) => {
   background: rgba(255, 255, 255, 0.8);
   border-radius: 32rpx 32rpx 32rpx 32rpx;
   border: 2rpx solid #FFFFFF;
+	
+backdrop-filter: blur(10px);
 }
 
 .slider-wrap {
@@ -298,4 +433,5 @@ onLoad((options) => {
 //       // height: 60rpx;
 //     }
 //   }
-// }</style>
+
+</style>
