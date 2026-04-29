@@ -5,14 +5,13 @@
     <view class="page-wrap">
         <view class="page-content padding-lg">
             <!-- 表单区域 -->
-             <!-- 输入框 + 添加按钮（水平排列） -->
-            <view class="input-with-btn flex align-center margin-bottom-60">
+            <!-- 输入框 + 添加按钮（水平排列） -->
+            <view class="input-with-btn flex align-center margin-bottom-lg">
                 <view class="input-box flex-grow-1 flex align-center ">
                     <input class="text-xl flex-grow-1" v-model="formData.imei" placeholder="请输入设备序列号"
                         placeholder-class="text-xulie-black" maxlength="20" />
                 </view>
-                <button class="add-btn text-white text-xl"
-                    @click="submit">
+                <button class="add-btn text-white text-xl" @click="submit">
                     添加
                 </button>
             </view>
@@ -23,7 +22,7 @@
                 <text class="text-xl text-scan-black">扫一扫添加</text>
             </view>
 
-           
+
         </view>
     </view>
 </template>
@@ -59,10 +58,10 @@ function submit() {
     // 模拟查询设备是否存在（使用假数据）
     setTimeout(() => {
         uni.hideLoading();
-        
+
         // 只要输入了内容就允许通过（实际项目中应该调用真实API验证IMEI）
         // 跳转到确认页面
-        toPath(`/pages/views/device/confirm?imei=${formData.imei.trim()}`);
+        toPath(`/pages/views/device/confirm/index?imei=${formData.imei.trim()}`);
     }, 800);
 }
 
@@ -87,25 +86,21 @@ function handleScan() {
 
 
 <style lang="scss">
-	.margin-bottom-60{
-		margin-bottom: 60rpx;
-	}
-	
 .page-wrap {
     .page-content {
         .input-with-btn {
-            background: rgba(255,255,255,0.7);
+            background: rgba(255, 255, 255, 0.7);
             border-radius: 30rpx;
             border: 2rpx solid #FFFFFF;
             height: 112rpx;
             padding: 12rpx;
             padding-left: 30rpx;
-            
+
             .input-box {
                 background: transparent;
                 border: none;
             }
-            
+
             .add-btn {
                 width: 172rpx;
                 height: 88rpx;
@@ -114,7 +109,7 @@ function handleScan() {
                 line-height: 88rpx;
                 border-radius: 20rpx;
                 margin: 0;
-                
+
                 &::after {
                     border: none;
                 }
@@ -122,13 +117,13 @@ function handleScan() {
         }
 
         .scan-box {
-            background: rgba(255,255,255,0.7);
+            background: rgba(255, 255, 255, 0.7);
             border-radius: 30rpx;
             border: 2rpx solid #FFFFFF;
             height: 112rpx;
             padding: 0 30rpx;
             margin-top: 20rpx;
-            
+
             .cuIcon-scan {
                 color: #5D4037;
             }
@@ -136,4 +131,3 @@ function handleScan() {
     }
 }
 </style>
-

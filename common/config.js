@@ -87,10 +87,10 @@ export const UPLOAD_FILE_URL = envConfig.UPLOAD_FILE_URL;
 export const FILE_STATIC_BASE_URL = envConfig.FILE_STATIC_BASE_URL;
 
 // 登录页路径
-export const LOGIN_PAGE_PATH = '/pages/views/login/wxLogin/index';
+export const LOGIN_PAGE_PATH = '/pages/login/wxLogin/index';
 
 // 应用首页
-export const HOME_PAGE_PATH = '/pages/tabs/home/home';
+export const HOME_PAGE_PATH = '/pages/tab/device/index';
 
 // app更新API_URL
 export const APP_UPDATE_URL = '';

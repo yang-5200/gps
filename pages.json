@@ -64,19 +64,61 @@
 			"path": "pages/tab/mine/index"
 		},
 		{ // 业务组件 - 添加设备
-			"path": "pages/views/device/add",
+			"path": "pages/views/device/add/index",
 			"style": {
 				"navigationStyle": "custom"
 			}
 		},
 		{ // 业务组件 - 确认添加设备
-			"path": "pages/views/device/confirm",
+			"path": "pages/views/device/confirm/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{ // 业务组件 - 设备详情
+			"path": "pages/views/device/detail/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{ // 业务组件 - 播放声音
+			"path": "pages/views/device/voice/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{ // 业务组件 - 历史轨迹
+			"path": "pages/views/device/history/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{ // 业务组件 - 历史轨迹详情
+			"path": "pages/views/device/history/detail/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{ // 业务组件 - 电子围栏
+			"path": "pages/views/device/fence/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{ // 业务组件 - 开机关机
+			"path": "pages/views/device/power/index",
 			"style": {
 				"navigationStyle": "custom"
 			}
 		},
 		{ // 业务组件 - 关于我们
-			"path": "pages/views/settings/about",
+			"path": "pages/views/settings/about/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{ // 业务组件 - 个人资料
+			"path": "pages/views/profile/index",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -101,7 +143,7 @@
 				"pagePath": "pages/tab/device/index",
 				"text": "设备",
 				"iconPath": "/static/images/tabbar/facility.png",
-				"selectedIconPath": "/static/images/tabbar/flacility-selected.png"
+				"selectedIconPath": "/static/images/tabbar/facility-selected.png"
 			},
 			{
 				"pagePath": "pages/tab/map/index",

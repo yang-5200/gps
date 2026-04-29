@@ -24,7 +24,7 @@ import { ref, reactive } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import { useNavbarImmerse } from '@/common/utils/useNavbarImmerse.js';
 import { useTabBar } from '../components/useTabBar.js';
-import CustomTabBar from '../components/CustomTabBar.vue';
+import CustomTabBar from '../components/custom-tab-bar/custom-tab-bar.vue';
 
 // 隐藏原生 TabBar
 useTabBar();
@@ -84,7 +84,7 @@ onLoad((options) => {
 <style lang="scss">
 .page-wrap {
   .page-content {
-    padding-bottom: 160rpx;
+    padding-bottom: calc(176rpx + env(safe-area-inset-bottom));
 
     .map-container {
       height: 600rpx;

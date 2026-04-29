@@ -11,11 +11,16 @@
 			</view>
 
 			<!-- 登录按钮区域 -->
-			<view class="login-btn-box margin-top-xl w100 padding-lr-df">
+			<view class="login-btn-box margin-top-140 w100 padding-lr-df">
 				<button
 					class="login-btn w100 box-size-h-49 radius-df text-df text-white flex align-center justify-center"
 					style="background-color: #5d4037" @click="handleWxLogin">
 					微信授权登录
+				</button>
+				<button
+					class="login-btn w100 box-size-h-49 radius-df text-df text-white flex align-center justify-center bg-blue margin-top-140"
+					@click="handleLoginClick">
+					模拟登录
 				</button>
 			</view>
 
@@ -45,6 +50,18 @@ import { http, urls } from '@/common/api/index.js';
 import { toPath, toast, loading } from '@/common/utils/util.js';
 
 const isAgree = ref(false);
+
+/**
+ * @description 跳转设备列表页面	
+ */
+function handleLoginClick() {
+	toPath({
+	path:'/pages/tab/device/index',
+	type:'switchTab',
+	});
+}
+
+
 
 /**
  * @description 切换同意状态
@@ -115,6 +132,10 @@ onLoad(() => {
 </script>
 
 <style lang="scss">
+	.margin-top-140{
+		margin-top: 140rpx;
+	}
+	
 .margin-top-300 {
 	margin-top: 300rpx;
 }

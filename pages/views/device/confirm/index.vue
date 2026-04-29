@@ -5,24 +5,19 @@
     <view class="page-wrap">
         <view class="page-content padding-lg">
             <!-- 设备图片 -->
-            <view class="device-image-wrap flex justify-center align-center margin-bottom-60">
+            <view class="device-image-wrap flex justify-center align-center margin-bottom-lg">
                 <image class="device-image" src="/static/images/equip/equip.png" mode="aspectFit"></image>
             </view>
 
             <!-- 设备序列号 -->
-            <view class="imei-wrap text-center margin-bottom-60">
+            <view class="imei-wrap text-center margin-bottom-lg">
                 <text class="text-xl text-gray">设备序列号：{{ imei }}</text>
             </view>
 
             <!-- 设备名称输入框 -->
-            <view class="input-wrap margin-bottom-80">
-                <input 
-                    class="device-name-input text-center text-xl" 
-                    v-model="deviceName" 
-                    placeholder="请输入设备名称"
-                    placeholder-class="placeholder-style"
-                    maxlength="20" 
-                />
+            <view class="input-wrap margin-bottom-xl">
+                <input class="device-name-input text-center text-xl" v-model="deviceName" placeholder="请输入设备名称"
+                    placeholder-class="placeholder-style" maxlength="20" />
             </view>
 
             <!-- 确认添加按钮 -->
@@ -68,7 +63,7 @@ function handleConfirm() {
     setTimeout(() => {
         // 获取已有设备列表
         let deviceList = uni.getStorageSync('deviceList') || [];
-        
+
         // 添加新设备
         const newDevice = {
             id: Date.now(),
@@ -77,15 +72,15 @@ function handleConfirm() {
             status: '在线',
             addTime: new Date().toLocaleString()
         };
-        
+
         deviceList.push(newDevice);
-        
+
         // 保存到本地存储
         uni.setStorageSync('deviceList', deviceList);
-        
+
         uni.hideLoading();
         toast('添加成功', 'success');
-        
+
         // 延迟后跳转到设备首页
         setTimeout(() => {
             uni.switchTab({
@@ -100,7 +95,7 @@ function handleConfirm() {
 .page-wrap {
     .page-content {
         padding-top: 60rpx;
-        
+
         .device-image-wrap {
             .device-image {
                 width: 300rpx;
@@ -121,7 +116,7 @@ function handleConfirm() {
                 border-radius: 30rpx;
                 padding: 0 30rpx;
             }
-            
+
             .placeholder-style {
                 color: #999;
             }
@@ -135,20 +130,12 @@ function handleConfirm() {
                 line-height: 100rpx;
                 margin: 0;
                 padding: 0;
-                
+
                 &::after {
                     border: none;
                 }
             }
         }
     }
-}
-
-.margin-bottom-60 {
-    margin-bottom: 60rpx;
-}
-
-.margin-bottom-80 {
-    margin-bottom: 80rpx;
 }
 </style>

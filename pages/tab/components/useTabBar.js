@@ -6,6 +6,6 @@ import { onLoad } from '@dcloudio/uni-app'
  */
 export function useTabBar() {
   onLoad(() => {
-    uni.hideTabBar()
+    uni.hideTabBar({ animation: false })
   })
 }
