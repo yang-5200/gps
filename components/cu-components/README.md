@@ -698,6 +698,88 @@ const loadText = {
 
 ### cu-scroll-bar 滚动条组件
 
+用于展示自定义样式的滚动条，通常配合 `scroll-view` 使用。
+
+**基础用法**
+
+```vue
+<cu-scroll-bar :scrollLeft="scrollLeft" :contentWidth="1000" />
+```
+
+**属性说明**
+| 参数 | 说明 | 类型 | 默认值 |
+|------|------|------|--------|
+| scrollLeft | 当前滚动位置 | Number | 0 |
+| contentWidth | 内容总宽度 | Number | 0 |
+| barWidth | 滚动条轨道宽度 | Number | 100 |
+| sliderWidth | 滑块宽度 | Number | 40 |
+
+---
+
+### cu-picker 选择器组件 ⭐ 推荐
+
+全功能选择器，支持日期、时间、省市区、单选、多级联动等模式。
+
+**基础用法**
+
+```vue
+<template>
+  <cu-picker
+    mode="date"
+    :current="true"
+    @confirm="handleConfirm"
+  />
+</template>
+
+<script setup>
+function handleConfirm(val) {
+  //console.log('选中值:', val);
+}
+</script>
+```
+
+**属性说明**
+| 参数 | 说明 | 类型 | 默认值 |
+|------|------|------|--------|
+| mode | 模式(date/time/region/selector/linkage/range/half) | String | date |
+| value | 默认值 | String/Array/Number | - |
+| current | 是否显示当前时间 | Boolean | false |
+| fields | 日期颗粒度(year/month/day/hour/minute/second) | String | date |
+| options | 数据源(仅 selector/linkage 模式) | Array | [] |
+| defaultProps | 字段映射配置 | Object | {label:"label", value:"value"} |
+
+---
+
+### cu-app-update APP 更新组件
+
+用于 APP 端的增量更新或整包更新管理。
+
+**基础用法**
+
+```javascript
+import { AppUpdate } from '@/components/cu-components/cu-app-update/app-update.js';
+
+const appUpdate = new AppUpdate({
+  popModalRef: popupRef,      // 弹窗组件实例
+  popUpdateAppRef: updateRef, // 下载进度弹窗实例
+  httpUrl: '/api/version'    // 检查更新的接口
+});
+
+appUpdate.testUpdate({ type: 'passive' });
+```
+
+---
+
+## 📦 三方模块 (uni_modules)
+
+项目集成了一些高质量的三方插件，它们通常拥有独立的文档：
+
+- **cu-poster**: 海报生成组件 [查看文档](../../uni_modules/cu-poster/readme.md)
+- **geek-sku**: 商品多规格选择 [查看文档](../../uni_modules/geek-sku/readme.md)
+- **lime-echart**: 图表组件 [查看文档](../../uni_modules/lime-echart/readme.md)
+- **mp-html**: 富文本解析 [查看文档](../../uni_modules/mp-html/README.md)
+- **uni-popup**: 官方弹出层 [查看文档](../../uni_modules/uni-popup/readme.md)
+
 横向滚动条组件，支持自定义内容。
 
 **基础用法**
