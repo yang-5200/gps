@@ -104,7 +104,8 @@ const initMap = () => {
     markers.value = validMarkers;
     
     if (firstValidCoord) {
-      latitude.value = firstValidCoord.lat;
+      // 设置地图中心点（应用偏移量，使标记点显示在屏幕上方中心区域）
+      latitude.value = firstValidCoord.lat - 0.012;
       longitude.value = firstValidCoord.lng;
     }
   }

@@ -122,6 +122,18 @@
 			"style": {
 				"navigationStyle": "custom"
 			}
+		},
+		{ // 业务组件 - 修改昵称
+			"path": "pages/views/profile/edit-nickname/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{ // 业务组件 - 修改头像
+			"path": "pages/views/profile/edit-avatar/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
 		}
 
 	],

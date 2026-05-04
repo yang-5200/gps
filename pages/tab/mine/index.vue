@@ -1,5 +1,5 @@
 <template>
-  <view class="page-wrap">
+  <view class="page-wrap page-df-color">
     <!-- 顶部导航栏 -->
    <cu-nav-bar :isBack="false" alignMode="left"  title-text="智购互联" color="#4E1200"
       :background="navbarImmerse.navBar.backgroundColor">
@@ -27,8 +27,8 @@
       <view class="menu-card bg-white  padding">
         <view class="menu-item flex justify-between align-center padding-tb-25" v-for="item in menuList" :key="item.id"
           @tap="handleItemClick(item)">
-          <view class="menu-item-left  flex align-center">
-            <view class="box-size-w-18 flex align-center  margin-right-xs">
+          <view class="menu-item-left  flex align-center padding-tb-5">
+            <view class="box-size-h-17 flex align-center  margin-right-xs">
               <image class="menu-icon box-size-w-13 box-size-h-14" :src="item.iconPath" mode="aspectFill" />
             </view>
             <text class="menu-text text-30">{{ item.name }}</text>
@@ -125,9 +125,14 @@ function handleItemClick(item) {
 		padding-top: 25rpx;
 		padding-bottom: 25rpx;
 	}
+	.padding-tb-5{
+		padding-top: 5rpx;
+		padding-bottom: 5rpx;
+	}
 	
 	
 .page-wrap {
+  min-height: 100vh;
   .page-content {
     padding: 0 30rpx;
     padding-bottom: calc(176rpx + env(safe-area-inset-bottom));

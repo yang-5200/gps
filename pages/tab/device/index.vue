@@ -77,7 +77,7 @@
     </view>
 
     <!-- 底部导航栏 -->
-    <cu-popup ref="deletePopupRef" mode="modal"></cu-popup>
+    <cu-popup ref="deletePopupRef" mode="modal" :isTabbarPage="true"></cu-popup>
     <CustomTabBar current-name="device" />
   </view>
 </template>
