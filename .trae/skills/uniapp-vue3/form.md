@@ -266,5 +266,5 @@ function sendCode() {
 6. **验证码倒计时**：需要防止重复点击，设置倒计时状态
 
 ## 相关 skill
-- [组件使用规范](./components.md)
+- [cu-components 自定义组件使用规范](./cu-components.md)
 - [原子化 CSS 使用规范](./atomic-css.md)

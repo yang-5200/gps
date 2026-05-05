@@ -387,4 +387,4 @@ async function getList() {
 ## 相关 skill
 
 - [接口调用规范](./api-request.md)
-- [组件使用规范](./components.md)
+- [cu-components 自定义组件使用规范](./cu-components.md)

@@ -220,6 +220,6 @@ const cuPopupRef = ref(null);  // 未使用
 
 ## 相关 skill
 
-- [组件使用规范](./components.md)
+- [cu-components 自定义组件使用规范](./cu-components.md)
 - [工具函数使用规范](./utils.md)
 - [原子化 CSS 使用规范](./atomic-css.md)

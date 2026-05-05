@@ -18,9 +18,10 @@ created: 2026-04-26
 
 ### 2. 占位方案优先级
 
-1. **首选** - 使用 `cuIcon` 图标库（如 `cuIcon-locationfill`）
-2. **次选** - 使用 CSS 绘制简单图形
-3. **避免** - 使用错误的图片路径或空白 image 标签
+1. **首选** - 使用 `cu-img` 组件（自带加载失败占位图 `errUrl`）
+2. **次选** - 使用 `cuIcon` 图标库 + 工具类创建占位效果
+3. **备选** - 使用 CSS 绘制简单图形
+4. **避免** - 使用错误的图片路径或空白 image 标签
 
 ## 示例代码
 
@@ -34,17 +35,11 @@ created: 2026-04-26
     <!-- <image class="logo-img box-size-lg-50" src="/static/logo.png" mode="aspectFit"></image> -->
     
     <!-- Logo 占位图标 -->
-    <view class="logo-placeholder box-size-lg-50 radius round flex align-center justify-center">
-      <text class="cuIcon-locationfill text-white text-xxxl"></text>
+    <view class="box-size-lg-50 radius bg-gray flex align-center justify-center">
+      <text class="cuIcon-pic text-white text-xxxl"></text>
     </view>
   </view>
 </template>
-
-<style lang="scss">
-.logo-placeholder {
-  background-color: #5D4037;
-}
-</style>
 ```
 
 ### 列表图片占位示例
@@ -56,7 +51,7 @@ created: 2026-04-26
     <!-- <image class="cover box-size-xs-40 radius-sm" :src="item.cover" mode="aspectFill"></image> -->
     
     <!-- 占位图标 -->
-    <view class="cover-placeholder box-size-xs-40 radius-sm bg-gray flex align-center justify-center">
+    <view class="box-size-xs-40 radius-sm bg-gray flex align-center justify-center">
       <text class="cuIcon-pic text-white text-lg"></text>
     </view>
     
@@ -73,10 +68,10 @@ created: 2026-04-26
 <template>
   <view class="avatar-box flex-row align-center">
     <!-- 头像占位 -->
-    <!-- <image class="avatar box-size-xs-32 radius round" :src="user.avatar" mode="aspectFill"></image> -->
+    <!-- <image class="avatar box-size-xs-32 round" :src="user.avatar" mode="aspectFill"></image> -->
     
     <!-- 头像占位图标 -->
-    <view class="avatar-placeholder box-size-xs-32 radius round bg-blue flex align-center justify-center">
+    <view class="box-size-xs-32 round bg-blue flex align-center justify-center">
       <text class="cuIcon-people text-white text-sm"></text>
     </view>
     
@@ -87,17 +82,30 @@ created: 2026-04-26
 
 ### 图片组件使用
 
-优先使用 `cu-img` 或 `image` 标签：
+优先使用 `cu-img` 组件，它自带加载失败占位图（默认 `/static/404_a.png`）：
 
 ```vue
 <template>
-  <!-- 使用 cu-img 组件 -->
+  <!-- 推荐：cu-img 自带错误占位图 -->
   <cu-img src="/static/logo.png" mode="aspectFit"></cu-img>
   
-  <!-- 或原生 image -->
+  <!-- 自定义失败占位图 -->
+  <cu-img src="/static/logo.png" errUrl="/static/not-data-1.png" mode="aspectFit"></cu-img>
+  
+  <!-- 原生 image（无错误处理，需手动注释） -->
   <image class="box-size-xs-32 radius-sm" src="/static/logo.png" mode="aspectFill"></image>
 </template>
 ```
+
+**`cu-img` Props：**
+
+| 属性 | 说明 | 默认值 |
+|------|------|--------|
+| `src` | 图片路径 | `''` |
+| `mode` | 图片裁剪模式 | `'aspectFill'` |
+| `errUrl` | 加载失败占位图 | `/static/404_a.png` |
+| `className` | 扩展类名 | `''` |
+| `styles` | 自定义样式对象 | `{}` |
 
 ## 常用 cuIcon 图标
 
@@ -124,4 +132,4 @@ created: 2026-04-26
 
 ## 相关 skill
 - [原子化 CSS 使用规范](./atomic-css.md)
-- [组件使用规范](./components.md)
+- [cu-components 自定义组件使用规范](./cu-components.md)

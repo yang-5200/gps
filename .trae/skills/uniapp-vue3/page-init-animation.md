@@ -168,4 +168,4 @@ onReady(async () => {
 ## 相关 skill
 
 - [页面生成规范](./page-generation.md)
-- [组件使用规范](./components.md)
+- [cu-components 自定义组件使用规范](./cu-components.md)

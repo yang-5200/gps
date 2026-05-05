@@ -8,7 +8,7 @@ created: 2026-04-26
 # 全局弹窗系统使用规范
 
 ## 问题/场景
-在 App 端需要显示全局弹窗（如升级提示、确认对话框、视频播放等），要求弹窗可以覆盖所有页面，支持多种展示模式，并能传递回调函数接收用户操作结果。
+需要显示全局弹窗（如升级提示、确认对话框、视频播放等），要求弹窗可以覆盖所有页面，支持多种展示模式，并能传递回调函数接收用户操作结果。系统支持两种调用方式：App 端通过页面跳转实现，H5/小程序端通过 `cu-popup` 组件直接在页面内展示。
 
 ## 核心要点
 
@@ -50,7 +50,116 @@ uni.popInfo = {
 uni.navigateTo({ url: '/pages/pop/index' });
 ```
 
-### 3. 弹窗类型说明
+### 3. cu-popup 组件封装（推荐用法）
+
+实际业务中通常**不直接操作 `uni.popInfo`**，而是通过 `cu-popup` 组件来调用弹窗。`cu-popup` 内部封装了平台差异处理，并自动管理 `cu-popup-group` 的调度。
+
+#### 组件关系
+
+```
+cu-popup（外层调度组件，页面中直接使用）
+  └── cu-popup-group（内层弹窗容器，根据 mode 分发到具体弹窗子组件）
+        ├── pop-modal
+        ├── pop-modal2
+        ├── pop-updateapp
+        ├── pop-modal-icon
+        ├── pop-input-surname
+        └── pop-video
+```
+
+- **`cu-popup`**：对外暴露的入口组件，负责处理平台差异（App 端走页面跳转，H5/小程序端走组件内显示）和对外 API 统一
+- **`cu-popup-group`**：弹窗内容的容器和分发器，根据 `mode` 属性通过 `v-if` 动态渲染不同的弹窗子组件（策略模式），新增弹窗类型只需添加对应子组件
+
+#### cu-popup Props
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `mode` | String | `''` | 弹窗类型，对应 cu-popup-group 中的 mode（modal/modal2/updateapp/modalIcon/inputSurname/video） |
+| `isTabbarPage` | Boolean | `false` | 当前页面是否为 tabbar 页面。为 true 时，弹窗展示前会隐藏 tabBar，关闭后恢复 |
+
+#### cu-popup Methods（通过 ref 调用）
+
+| 方法 | 说明 | 参数 |
+|------|------|------|
+| `show(options)` | 展示弹窗 | `options.isBack`：是否允许返回关闭（默认 true）；`options.success`：成功回调函数；以及各弹窗类型的 data 配置 |
+
+#### H5 / 小程序端用法（组件内显示）
+
+在 H5 和微信小程序端，`cu-popup` 直接在当前页面内显示弹窗，**不走页面跳转**：
+
+```vue
+<template>
+  <cu-popup ref="cuPopupRef" mode="modal" :isTabbarPage="false" />
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const cuPopupRef = ref(null);
+
+function showConfirm() {
+  cuPopupRef.value.show({
+    title: '提示',
+    content: '确定要删除吗？',
+    showCancel: true,
+    success: (result) => {
+      if (result.confirm) {
+        console.log('用户点击确定');
+      }
+    }
+  });
+}
+</script>
+```
+
+#### App 端用法（页面跳转）
+
+在 App 端，调用 `cuPopupRef.value.show()` 会自动跳转到 `/pages/pop/index` 页面（透明背景的压窗屏），弹窗在该页面中展示：
+
+```vue
+<template>
+  <!-- #ifndef APP-NVUE -->
+  <cu-popup ref="cuPopupRef" mode="modalIcon" :isTabbarPage="true" />
+  <!-- #endif -->
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const cuPopupRef = ref(null);
+
+function showInputDialog() {
+  cuPopupRef.value.show({
+    title: '设置昵称',
+    showIcon: false,
+    showInput: true,
+    inputType: 'text',
+    inputPlaceholder: '请输入昵称',
+    maxlength: 10,
+    required: true,
+    validator: (value) => value.length >= 2,
+    success: (result) => {
+      if (result.confirm) {
+        console.log('输入的值：', result.value);
+      }
+    }
+  });
+}
+</script>
+```
+
+#### 内部平台差异处理
+
+`cu-popup` 内部通过条件编译处理不同平台的逻辑差异：
+
+| 平台 | 弹窗展示方式 | 返回处理 | tabbar 处理 |
+|------|------------|---------|------------|
+| **APP-PLUS** | 跳转到 `/pages/pop/index` 页面 | `back()` 返回上一页 | 无需特殊处理 |
+| **H5 / MP-WEIXIN** | 组件内通过 `cuPopupGroupRef.show()` 直接展示 | 组件内部控制 | `show()` 前隐藏 tabbar，回调后恢复 |
+
+> ⚠️ **注意**：`cu-popup` 模板中使用 `<!-- #ifndef APP-NVUE -->` 条件编译包裹 `cu-popup-group`，在 APP 端 `cu-popup-group` 不会被渲染，弹窗通过页面跳转到 `pages/pop/index` 来展示。
+
+### 4. 弹窗类型说明
 
 | 类型 | 用途 | 特点 |
 |------|------|------|
@@ -61,7 +170,7 @@ uni.navigateTo({ url: '/pages/pop/index' });
 | `inputSurname` | 姓氏输入弹窗 | 专用姓氏输入，带 textarea |
 | `video` | 视频播放弹窗 | 全屏视频播放，支持各种视频配置 |
 
-### 4. 各类型详细配置
+### 5. 各类型详细配置
 
 #### modal / modal2 通用配置
 
@@ -277,11 +386,29 @@ function showRichText() {
 }
 ```
 
+### 5. 如何扩展新弹窗类型 (Self-Replication Skill)
+
+当现有的弹窗类型无法满足业务需求时，请按照以下步骤添加新弹窗：
+
+1. **创建具体弹窗组件**：
+   在 `components/cu-components/cu-popup-group/` 目录下新建文件夹，如 `pop-new-type`。
+   - 编写 `index.vue`，必须包含 `show(data)` 方法供父组件调用。
+   - 必须通过 `emit('success', result)` 将操作结果回传。
+
+2. **在 cu-popup-group 中注册**：
+   修改 `components/cu-components/cu-popup-group/cu-popup-group.vue`：
+   - 导入新组件。
+   - 在 `<template>` 中添加对应的 `v-if` 判断。
+   - 在 `show()` 方法的 `switch` 逻辑中添加新的分支。
+
+3. **定义数据契约**：
+   在 `popup-system.md` 中记录新类型的 `data` 结构。
+
 ## 注意事项
 
-### 1. 仅在 App 端生效
+### 1. 平台差异说明
 
-弹窗页面在 [pages.json](file:///c:/Users/34227/Desktop/work/练习/templete-low-altitude-app/pages.json) 中使用了条件编译：
+弹窗载体页面 `/pages/pop/index` 在 `pages.json` 中使用了条件编译，**仅在 App 端注册**：
 
 ```json
 // #ifdef APP-PLUS
@@ -299,7 +426,11 @@ function showRichText() {
 // #endif
 ```
 
-这意味着该弹窗系统**仅在 App 端可用**，H5 和小程序端不会注册该页面。
+但弹窗系统**并非仅 App 端可用**：
+- **App 端**：通过页面跳转到 `/pages/pop/index` 展示弹窗（压窗屏效果）
+- **H5 / 小程序端**：通过 `cu-popup` 组件封装，在当前页面内直接渲染 `cu-popup-group` 展示弹窗
+
+因此推荐使用 `cu-popup` 组件方式调用，它会自动处理平台差异。
 
 ### 2. 回调函数处理
 
@@ -330,6 +461,6 @@ titleStyle: {
 
 ## 相关 skill
 
-- [组件使用规范](./components.md) - 了解 cu-popup-group 组件
+- [cu-components 自定义组件使用规范](./cu-components.md) - 了解 cu-popup、cu-popup-group 等组件的 Props/Events/Methods 详情
 - [页面生成规范](./page-generation.md) - 页面开发规范
 - [工具函数使用规范](./utils.md) - toast、验证等工具函数

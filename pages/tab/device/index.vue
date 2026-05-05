@@ -54,8 +54,18 @@
         </view>
 
         <!-- 固定悬浮添加按钮 -->
-        <image class="add-floating-btn" src="/static/images/add-flacility.png" mode="aspectFit" @tap="addDevice">
-        </image>
+       <!-- <image class="add-floating-btn" src="/static/images/add-flacility.png" mode="aspectFit" @tap="addDevice">
+        </image> -->
+				<view class="add-floating-btn " @tap="addDevice">
+					<view class="flex flex-direction align-center justify-center">
+						<image src="/static/images/add-flacity.png" class="box-size-54" mode="aspectFit"></image>
+						<view class="margin-top-8">
+							<text class="text-28 text-df-color text-hidden">添加设备</text>
+						</view>
+						
+					</view>
+					
+				</view>
       </template>
 
       <!-- 无设备时显示空状态 -->
@@ -213,6 +223,9 @@ function deleteDevice(device) {
 </script>
 
 <style lang="scss">
+	.margin-top-8{
+		margin-top: 8rpx;
+	}
 page {
   height: 100%;
 }

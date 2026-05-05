@@ -234,4 +234,4 @@ const onCancel = () => {
 
 - [表单书写规范](./form.md)
 - [表单数据回显与状态管理](./form-data-echo.md)
-- [组件使用规范](./components.md)
+- [cu-components 自定义组件使用规范](./cu-components.md)

@@ -117,4 +117,4 @@ async function loadContent(id) {
 
 ## 相关 skill
 - [多数据源页面设计](./multi-source-page.md)
-- [组件使用规范](./components.md)
+- [cu-components 自定义组件使用规范](./cu-components.md)
